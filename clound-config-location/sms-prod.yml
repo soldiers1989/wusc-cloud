@@ -1,0 +1,23 @@
+cxc:
+  sms:
+    mlrt:
+      username: cdkj
+      password: asdf1234q
+      apikey: b7c3d087b73ce0471e01e1f28dabe26c
+      encode: UTF-8
+      weight: 50
+    zt:
+      username: chuangdahy
+      password: CLDUll
+      url: http://www.api.zthysms.com/sendSms.do
+      weight: 50
+  log:
+    level: WARNING
+spring:
+  zipkin.base-url: 'http://zipkin:9411'
+server:
+  port: 8080
+  connection-timeout: 5000
+  tomcat:
+    max-threads: 1000
+    min-spare-threads: 200

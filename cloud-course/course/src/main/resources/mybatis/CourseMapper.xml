@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.Course" >
+    <id column="course_id" property="courseId" jdbcType="BIGINT" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="tutor_id" property="tutorId" jdbcType="VARCHAR" />
+    <result column="depict" property="depict" jdbcType="VARCHAR" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="recommended_level" property="recommendedLevel" jdbcType="SMALLINT" />
+    <result column="click_rate" property="clickRate" jdbcType="BIGINT" />
+    <result column="participants_num" property="participantsNum" jdbcType="BIGINT" />
+    <result column="attendance_grade" property="attendanceGrade" jdbcType="SMALLINT" />
+    <result column="exercises_grade" property="exercisesGrade" jdbcType="SMALLINT" />
+    <result column="examine_grade" property="examineGrade" jdbcType="SMALLINT" />
+    <result column="passing_grade" property="passingGrade" jdbcType="SMALLINT" />
+    <result column="is_leaf_node" property="isLeafNode" jdbcType="BIT" />
+    <result column="part_id_list" property="partIdList" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="TIMESTAMP" />
+    <result column="learning_target_number" property="learningTargetNumber" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    course_id, category_id, course_name, tutor_id, depict, icon_url, picture_url, created, 
+    updated, update_user_id, recommended_level, click_rate, participants_num, attendance_grade, 
+    exercises_grade, examine_grade, passing_grade, is_leaf_node, part_id_list, sn, learning_target_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from course
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.CourseExample" >
+    delete from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.Course" >
+    insert into course (course_id, category_id, course_name, 
+      tutor_id, depict, icon_url, 
+      picture_url, created, updated, 
+      update_user_id, recommended_level, click_rate, 
+      participants_num, attendance_grade, exercises_grade, 
+      examine_grade, passing_grade, is_leaf_node, 
+      part_id_list, sn, learning_target_number
+      )
+    values (#{courseId,jdbcType=BIGINT}, #{categoryId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, 
+      #{tutorId,jdbcType=VARCHAR}, #{depict,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR}, 
+      #{pictureUrl,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{recommendedLevel,jdbcType=SMALLINT}, #{clickRate,jdbcType=BIGINT}, 
+      #{participantsNum,jdbcType=BIGINT}, #{attendanceGrade,jdbcType=SMALLINT}, #{exercisesGrade,jdbcType=SMALLINT}, 
+      #{examineGrade,jdbcType=SMALLINT}, #{passingGrade,jdbcType=SMALLINT}, #{isLeafNode,jdbcType=BIT}, 
+      #{partIdList,jdbcType=VARCHAR}, #{sn,jdbcType=TIMESTAMP}, #{learningTargetNumber,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.Course" useGeneratedKeys="true" keyProperty="courseId">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="tutorId != null" >
+        tutor_id,
+      </if>
+      <if test="depict != null" >
+        depict,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="recommendedLevel != null" >
+        recommended_level,
+      </if>
+      <if test="clickRate != null" >
+        click_rate,
+      </if>
+      <if test="participantsNum != null" >
+        participants_num,
+      </if>
+      <if test="attendanceGrade != null" >
+        attendance_grade,
+      </if>
+      <if test="exercisesGrade != null" >
+        exercises_grade,
+      </if>
+      <if test="examineGrade != null" >
+        examine_grade,
+      </if>
+      <if test="passingGrade != null" >
+        passing_grade,
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node,
+      </if>
+      <if test="partIdList != null" >
+        part_id_list,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="learningTargetNumber != null" >
+        learning_target_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="tutorId != null" >
+        #{tutorId,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="recommendedLevel != null" >
+        #{recommendedLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="clickRate != null" >
+        #{clickRate,jdbcType=BIGINT},
+      </if>
+      <if test="participantsNum != null" >
+        #{participantsNum,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceGrade != null" >
+        #{attendanceGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="exercisesGrade != null" >
+        #{exercisesGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="examineGrade != null" >
+        #{examineGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="passingGrade != null" >
+        #{passingGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="isLeafNode != null" >
+        #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        #{partIdList,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="learningTargetNumber != null" >
+        #{learningTargetNumber,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.CourseExample" resultType="java.lang.Integer" >
+    select count(*) from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course
+    <set >
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseName != null" >
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tutorId != null" >
+        tutor_id = #{record.tutorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depict != null" >
+        depict = #{record.depict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconUrl != null" >
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.recommendedLevel != null" >
+        recommended_level = #{record.recommendedLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="record.clickRate != null" >
+        click_rate = #{record.clickRate,jdbcType=BIGINT},
+      </if>
+      <if test="record.participantsNum != null" >
+        participants_num = #{record.participantsNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.attendanceGrade != null" >
+        attendance_grade = #{record.attendanceGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="record.exercisesGrade != null" >
+        exercises_grade = #{record.exercisesGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="record.examineGrade != null" >
+        examine_grade = #{record.examineGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="record.passingGrade != null" >
+        passing_grade = #{record.passingGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="record.isLeafNode != null" >
+        is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="record.partIdList != null" >
+        part_id_list = #{record.partIdList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.learningTargetNumber != null" >
+        learning_target_number = #{record.learningTargetNumber,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course
+    set course_id = #{record.courseId,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      tutor_id = #{record.tutorId,jdbcType=VARCHAR},
+      depict = #{record.depict,jdbcType=VARCHAR},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      recommended_level = #{record.recommendedLevel,jdbcType=SMALLINT},
+      click_rate = #{record.clickRate,jdbcType=BIGINT},
+      participants_num = #{record.participantsNum,jdbcType=BIGINT},
+      attendance_grade = #{record.attendanceGrade,jdbcType=SMALLINT},
+      exercises_grade = #{record.exercisesGrade,jdbcType=SMALLINT},
+      examine_grade = #{record.examineGrade,jdbcType=SMALLINT},
+      passing_grade = #{record.passingGrade,jdbcType=SMALLINT},
+      is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      part_id_list = #{record.partIdList,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=TIMESTAMP},
+      learning_target_number = #{record.learningTargetNumber,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.Course" >
+    update course
+    <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="tutorId != null" >
+        tutor_id = #{tutorId,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        depict = #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="recommendedLevel != null" >
+        recommended_level = #{recommendedLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="clickRate != null" >
+        click_rate = #{clickRate,jdbcType=BIGINT},
+      </if>
+      <if test="participantsNum != null" >
+        participants_num = #{participantsNum,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceGrade != null" >
+        attendance_grade = #{attendanceGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="exercisesGrade != null" >
+        exercises_grade = #{exercisesGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="examineGrade != null" >
+        examine_grade = #{examineGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="passingGrade != null" >
+        passing_grade = #{passingGrade,jdbcType=SMALLINT},
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        part_id_list = #{partIdList,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="learningTargetNumber != null" >
+        learning_target_number = #{learningTargetNumber,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.Course" >
+    update course
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      tutor_id = #{tutorId,jdbcType=VARCHAR},
+      depict = #{depict,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      recommended_level = #{recommendedLevel,jdbcType=SMALLINT},
+      click_rate = #{clickRate,jdbcType=BIGINT},
+      participants_num = #{participantsNum,jdbcType=BIGINT},
+      attendance_grade = #{attendanceGrade,jdbcType=SMALLINT},
+      exercises_grade = #{exercisesGrade,jdbcType=SMALLINT},
+      examine_grade = #{examineGrade,jdbcType=SMALLINT},
+      passing_grade = #{passingGrade,jdbcType=SMALLINT},
+      is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      part_id_list = #{partIdList,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=TIMESTAMP},
+      learning_target_number = #{learningTargetNumber,jdbcType=SMALLINT}
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateClickRateByPrimaryKey" parameterType="java.lang.Long" >
+    update course
+    set click_rate = click_rate+1
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateParticipantsNumByPrimaryKey" parameterType="java.lang.Long" >
+    update course
+    set participants_num = participants_num+1
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>
+</mapper>

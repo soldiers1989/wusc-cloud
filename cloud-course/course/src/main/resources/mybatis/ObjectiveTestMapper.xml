@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.ObjectiveTestMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.ObjectiveTest" >
+    <id column="question_id" property="questionId" jdbcType="BIGINT" />
+    <result column="part_id" property="partId" jdbcType="BIGINT" />
+    <result column="question_type" property="questionType" jdbcType="SMALLINT" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="choices" property="choices" jdbcType="VARCHAR" />
+    <result column="right_key" property="rightKey" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="SMALLINT" />
+    <result column="comment_on" property="commentOn" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    question_id, part_id, question_type, question, choices, right_key, score, comment_on, 
+    sn, created, updated, update_user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.ObjectiveTestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from objective_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from objective_test
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from objective_test
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.ObjectiveTestExample" >
+    delete from objective_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.ObjectiveTest" >
+    insert into objective_test (question_id, part_id, question_type, 
+      question, choices, right_key, 
+      score, comment_on, sn, 
+      created, updated, update_user_id
+      )
+    values (#{questionId,jdbcType=BIGINT}, #{partId,jdbcType=BIGINT}, #{questionType,jdbcType=SMALLINT}, 
+      #{question,jdbcType=VARCHAR}, #{choices,jdbcType=VARCHAR}, #{rightKey,jdbcType=VARCHAR}, 
+      #{score,jdbcType=SMALLINT}, #{commentOn,jdbcType=VARCHAR}, #{sn,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.ObjectiveTest" useGeneratedKeys="true" keyProperty="questionId">
+    insert into objective_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="partId != null" >
+        part_id,
+      </if>
+      <if test="questionType != null" >
+        question_type,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="choices != null" >
+        choices,
+      </if>
+      <if test="rightKey != null" >
+        right_key,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="commentOn != null" >
+        comment_on,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="partId != null" >
+        #{partId,jdbcType=BIGINT},
+      </if>
+      <if test="questionType != null" >
+        #{questionType,jdbcType=SMALLINT},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="choices != null" >
+        #{choices,jdbcType=VARCHAR},
+      </if>
+      <if test="rightKey != null" >
+        #{rightKey,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=SMALLINT},
+      </if>
+      <if test="commentOn != null" >
+        #{commentOn,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.ObjectiveTestExample" resultType="java.lang.Integer" >
+    select count(*) from objective_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update objective_test
+    <set >
+      <if test="record.questionId != null" >
+        question_id = #{record.questionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.partId != null" >
+        part_id = #{record.partId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionType != null" >
+        question_type = #{record.questionType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.question != null" >
+        question = #{record.question,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choices != null" >
+        choices = #{record.choices,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightKey != null" >
+        right_key = #{record.rightKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=SMALLINT},
+      </if>
+      <if test="record.commentOn != null" >
+        comment_on = #{record.commentOn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update objective_test
+    set question_id = #{record.questionId,jdbcType=BIGINT},
+      part_id = #{record.partId,jdbcType=BIGINT},
+      question_type = #{record.questionType,jdbcType=SMALLINT},
+      question = #{record.question,jdbcType=VARCHAR},
+      choices = #{record.choices,jdbcType=VARCHAR},
+      right_key = #{record.rightKey,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=SMALLINT},
+      comment_on = #{record.commentOn,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=TIMESTAMP},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.ObjectiveTest" >
+    update objective_test
+    <set >
+      <if test="partId != null" >
+        part_id = #{partId,jdbcType=BIGINT},
+      </if>
+      <if test="questionType != null" >
+        question_type = #{questionType,jdbcType=SMALLINT},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="choices != null" >
+        choices = #{choices,jdbcType=VARCHAR},
+      </if>
+      <if test="rightKey != null" >
+        right_key = #{rightKey,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=SMALLINT},
+      </if>
+      <if test="commentOn != null" >
+        comment_on = #{commentOn,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.ObjectiveTest" >
+    update objective_test
+    set part_id = #{partId,jdbcType=BIGINT},
+      question_type = #{questionType,jdbcType=SMALLINT},
+      question = #{question,jdbcType=VARCHAR},
+      choices = #{choices,jdbcType=VARCHAR},
+      right_key = #{rightKey,jdbcType=VARCHAR},
+      score = #{score,jdbcType=SMALLINT},
+      comment_on = #{commentOn,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT}
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </update>
+</mapper>

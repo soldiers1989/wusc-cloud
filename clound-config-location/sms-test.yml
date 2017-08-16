@@ -1,0 +1,19 @@
+redis: 
+  token: 815989761215415db597670ba2e32ef1
+cxc:
+  sms:
+    mlrt:
+      username: cdkj
+      password: asdf1234q
+      apikey: b7c3d087b73ce0471e01e1f28dabe26c
+      encode: UTF-8
+      weight: 50
+    zt:
+      username: chuangdahy
+      password: CLDUll
+      url: http://www.api.zthysms.com/sendSms.do
+      weight: 50
+  log:
+    level: DEBUG
+spring:
+  zipkin.base-url: 'http://172.17.80.255:9411'

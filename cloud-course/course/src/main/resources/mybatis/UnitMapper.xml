@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.UnitMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.Unit" >
+    <id column="unit_id" property="unitId" jdbcType="BIGINT" />
+    <result column="course_id" property="courseId" jdbcType="BIGINT" />
+    <result column="section_id" property="sectionId" jdbcType="BIGINT" />
+    <result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+    <result column="unit_type" property="unitType" jdbcType="SMALLINT" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="depict" property="depict" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="TIMESTAMP" />
+    <result column="is_leaf_node" property="isLeafNode" jdbcType="BIT" />
+    <result column="part_id_list" property="partIdList" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    unit_id, course_id, section_id, unit_name, unit_type, picture_url, depict, sn, is_leaf_node, 
+    part_id_list
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.UnitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from unit
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from unit
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.UnitExample" >
+    delete from unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.Unit" >
+    insert into unit (unit_id, course_id, section_id, 
+      unit_name, unit_type, picture_url, 
+      depict, sn, is_leaf_node, 
+      part_id_list)
+    values (#{unitId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{sectionId,jdbcType=BIGINT}, 
+      #{unitName,jdbcType=VARCHAR}, #{unitType,jdbcType=SMALLINT}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{depict,jdbcType=VARCHAR}, #{sn,jdbcType=TIMESTAMP}, #{isLeafNode,jdbcType=BIT}, 
+      #{partIdList,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.Unit" useGeneratedKeys="true" keyProperty="unitId">
+    insert into unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="unitType != null" >
+        unit_type,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="depict != null" >
+        depict,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node,
+      </if>
+      <if test="partIdList != null" >
+        part_id_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null" >
+        #{unitType,jdbcType=SMALLINT},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeafNode != null" >
+        #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        #{partIdList,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.UnitExample" resultType="java.lang.Integer" >
+    select count(*) from unit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update unit
+    <set >
+      <if test="record.unitId != null" >
+        unit_id = #{record.unitId,jdbcType=BIGINT},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sectionId != null" >
+        section_id = #{record.sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.unitName != null" >
+        unit_name = #{record.unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitType != null" >
+        unit_type = #{record.unitType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depict != null" >
+        depict = #{record.depict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isLeafNode != null" >
+        is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="record.partIdList != null" >
+        part_id_list = #{record.partIdList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update unit
+    set unit_id = #{record.unitId,jdbcType=BIGINT},
+      course_id = #{record.courseId,jdbcType=BIGINT},
+      section_id = #{record.sectionId,jdbcType=BIGINT},
+      unit_name = #{record.unitName,jdbcType=VARCHAR},
+      unit_type = #{record.unitType,jdbcType=SMALLINT},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      depict = #{record.depict,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=TIMESTAMP},
+      is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      part_id_list = #{record.partIdList,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.Unit" >
+    update unit
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionId != null" >
+        section_id = #{sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null" >
+        unit_type = #{unitType,jdbcType=SMALLINT},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        depict = #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        part_id_list = #{partIdList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.Unit" >
+    update unit
+    set course_id = #{courseId,jdbcType=BIGINT},
+      section_id = #{sectionId,jdbcType=BIGINT},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=SMALLINT},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      depict = #{depict,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=TIMESTAMP},
+      is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      part_id_list = #{partIdList,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=BIGINT}
+  </update>
+</mapper>

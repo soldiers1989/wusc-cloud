@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.PartMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.Part" >
+    <id column="part_id" property="partId" jdbcType="BIGINT" />
+    <result column="course_id" property="courseId" jdbcType="BIGINT" />
+    <result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+    <result column="section_id" property="sectionId" jdbcType="BIGINT" />
+    <result column="unit_id" property="unitId" jdbcType="BIGINT" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="part_type" property="partType" jdbcType="SMALLINT" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="depict" property="depict" jdbcType="VARCHAR" />
+    <result column="resource_id" property="resourceId" jdbcType="BIGINT" />
+    <result column="objective_test_list" property="objectiveTestList" jdbcType="VARCHAR" />
+    <result column="objective_right_key_list" property="objectiveRightKeyList" jdbcType="VARCHAR" />
+    <result column="subjective_test_list" property="subjectiveTestList" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="sn" property="sn" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    part_id, course_id, chapter_id, section_id, unit_id, part_name, part_type, picture_url, 
+    depict, resource_id, objective_test_list, objective_right_key_list, subjective_test_list, 
+    created, updated, update_user_id, sn
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.PartExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from part
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from part
+    where part_id = #{partId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from part
+    where part_id = #{partId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.PartExample" >
+    delete from part
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.Part" >
+    insert into part (part_id, course_id, chapter_id, 
+      section_id, unit_id, part_name, 
+      part_type, picture_url, depict, 
+      resource_id, objective_test_list, objective_right_key_list, 
+      subjective_test_list, created, updated, 
+      update_user_id, sn)
+    values (#{partId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{chapterId,jdbcType=BIGINT}, 
+      #{sectionId,jdbcType=BIGINT}, #{unitId,jdbcType=BIGINT}, #{partName,jdbcType=VARCHAR}, 
+      #{partType,jdbcType=SMALLINT}, #{pictureUrl,jdbcType=VARCHAR}, #{depict,jdbcType=VARCHAR}, 
+      #{resourceId,jdbcType=BIGINT}, #{objectiveTestList,jdbcType=VARCHAR}, #{objectiveRightKeyList,jdbcType=VARCHAR}, 
+      #{subjectiveTestList,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=BIGINT}, #{sn,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.Part" useGeneratedKeys="true" keyProperty="partId">
+    insert into part
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        part_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="chapterId != null" >
+        chapter_id,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="partName != null" >
+        part_name,
+      </if>
+      <if test="partType != null" >
+        part_type,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="depict != null" >
+        depict,
+      </if>
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="objectiveTestList != null" >
+        objective_test_list,
+      </if>
+      <if test="objectiveRightKeyList != null" >
+        objective_right_key_list,
+      </if>
+      <if test="subjectiveTestList != null" >
+        subjective_test_list,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        #{partId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterId != null" >
+        #{chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="partName != null" >
+        #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partType != null" >
+        #{partType,jdbcType=SMALLINT},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="objectiveTestList != null" >
+        #{objectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="objectiveRightKeyList != null" >
+        #{objectiveRightKeyList,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectiveTestList != null" >
+        #{subjectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.PartExample" resultType="java.lang.Integer" >
+    select count(*) from part
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update part
+    <set >
+      <if test="record.partId != null" >
+        part_id = #{record.partId,jdbcType=BIGINT},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.chapterId != null" >
+        chapter_id = #{record.chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sectionId != null" >
+        section_id = #{record.sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.unitId != null" >
+        unit_id = #{record.unitId,jdbcType=BIGINT},
+      </if>
+      <if test="record.partName != null" >
+        part_name = #{record.partName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partType != null" >
+        part_type = #{record.partType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depict != null" >
+        depict = #{record.depict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceId != null" >
+        resource_id = #{record.resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.objectiveTestList != null" >
+        objective_test_list = #{record.objectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objectiveRightKeyList != null" >
+        objective_right_key_list = #{record.objectiveRightKeyList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectiveTestList != null" >
+        subjective_test_list = #{record.subjectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update part
+    set part_id = #{record.partId,jdbcType=BIGINT},
+      course_id = #{record.courseId,jdbcType=BIGINT},
+      chapter_id = #{record.chapterId,jdbcType=BIGINT},
+      section_id = #{record.sectionId,jdbcType=BIGINT},
+      unit_id = #{record.unitId,jdbcType=BIGINT},
+      part_name = #{record.partName,jdbcType=VARCHAR},
+      part_type = #{record.partType,jdbcType=SMALLINT},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      depict = #{record.depict,jdbcType=VARCHAR},
+      resource_id = #{record.resourceId,jdbcType=BIGINT},
+      objective_test_list = #{record.objectiveTestList,jdbcType=VARCHAR},
+      objective_right_key_list = #{record.objectiveRightKeyList,jdbcType=VARCHAR},
+      subjective_test_list = #{record.subjectiveTestList,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      sn = #{record.sn,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.Part" >
+    update part
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterId != null" >
+        chapter_id = #{chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionId != null" >
+        section_id = #{sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=BIGINT},
+      </if>
+      <if test="partName != null" >
+        part_name = #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="partType != null" >
+        part_type = #{partType,jdbcType=SMALLINT},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        depict = #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null" >
+        resource_id = #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="objectiveTestList != null" >
+        objective_test_list = #{objectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="objectiveRightKeyList != null" >
+        objective_right_key_list = #{objectiveRightKeyList,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectiveTestList != null" >
+        subjective_test_list = #{subjectiveTestList,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where part_id = #{partId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.Part" >
+    update part
+    set course_id = #{courseId,jdbcType=BIGINT},
+      chapter_id = #{chapterId,jdbcType=BIGINT},
+      section_id = #{sectionId,jdbcType=BIGINT},
+      unit_id = #{unitId,jdbcType=BIGINT},
+      part_name = #{partName,jdbcType=VARCHAR},
+      part_type = #{partType,jdbcType=SMALLINT},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      depict = #{depict,jdbcType=VARCHAR},
+      resource_id = #{resourceId,jdbcType=BIGINT},
+      objective_test_list = #{objectiveTestList,jdbcType=VARCHAR},
+      objective_right_key_list = #{objectiveRightKeyList,jdbcType=VARCHAR},
+      subjective_test_list = #{subjectiveTestList,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      sn = #{sn,jdbcType=TIMESTAMP}
+    where part_id = #{partId,jdbcType=BIGINT}
+  </update>
+</mapper>

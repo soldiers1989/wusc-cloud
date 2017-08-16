@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: course
+  cloud:
+    config:
+      profile: ${CLOUD_PROFILE}
+      label: master
+      discovery: 
+        serviceId: config-server
+        enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER_ADDRESS}:1111/eureka/
+  instance:
+    preferIpAddress: false
+    hostName: ${spring.application.name}

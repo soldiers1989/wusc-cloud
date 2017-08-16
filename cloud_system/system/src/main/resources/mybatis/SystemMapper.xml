@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.system.mapper.SystemMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.system.model.System" >
+    <id column="system_id" property="systemId" jdbcType="BIGINT" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="system_summary" property="systemSummary" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    system_id, system_name, system_summary, created, status, updated
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.system.model.SystemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from system
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.system.model.System" >
+    insert into system (system_id, system_name, system_summary, 
+      created, status, updated
+      )
+    values (#{systemId,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{systemSummary,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{updated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.system.model.System" >
+    insert into system
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemId != null" >
+        system_id,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="systemSummary != null" >
+        system_summary,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemId != null" >
+        #{systemId,jdbcType=BIGINT},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemSummary != null" >
+        #{systemSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system
+    <set >
+      <if test="record.systemId != null" >
+        system_id = #{record.systemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.systemName != null" >
+        system_name = #{record.systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemSummary != null" >
+        system_summary = #{record.systemSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system
+    set system_id = #{record.systemId,jdbcType=BIGINT},
+      system_name = #{record.systemName,jdbcType=VARCHAR},
+      system_summary = #{record.systemSummary,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      updated = #{record.updated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.system.model.System" >
+    update system
+    <set >
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemSummary != null" >
+        system_summary = #{systemSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.system.model.System" >
+    update system
+    set system_name = #{systemName,jdbcType=VARCHAR},
+      system_summary = #{systemSummary,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where system_id = #{systemId,jdbcType=BIGINT}
+  </update>
+</mapper>

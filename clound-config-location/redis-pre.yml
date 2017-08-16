@@ -1,0 +1,24 @@
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+server:
+  port: 8086
+  connection-timeout: 5000
+  tomcat:
+    max-threads: 50
+    min-spare-threads: 20
+spring:
+  zipkin.base-url: 'http://172.17.80.255:9411'
+redis:
+  token: 815989761215415db597670ba2e32ef1
+  host: ${REDIS_HOST}
+  port: 6379
+  timeout: 4000
+  password: wanglei#520
+  database: 4
+  config:
+    maxTotal: 200
+    maxIdle: 100
+    minIdle: 20
+cxc:
+  log:
+    level: INFO
+    

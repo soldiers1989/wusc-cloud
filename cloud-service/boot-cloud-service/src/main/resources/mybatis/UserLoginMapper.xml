@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.ms.service.mvc.dao.UserLoginMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.ms.service.mvc.model.UserLogin" >
+    <id column="login_id" property="loginId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="os" property="os" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="src" property="src" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    login_id, user_id, phone, status, login_time, os, model, src, uuid, province, city
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_login
+    where login_id = #{loginId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_login
+    where login_id = #{loginId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.ms.service.mvc.model.UserLogin" >
+    insert into user_login (login_id, user_id, phone, 
+      status, login_time, os, 
+      model, src, uuid, province, 
+      city)
+    values (#{loginId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{phone,jdbcType=CHAR}, 
+      #{status,jdbcType=TINYINT}, #{loginTime,jdbcType=TIMESTAMP}, #{os,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{src,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.ms.service.mvc.model.UserLogin" >
+    insert into user_login
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="loginTime != null" >
+        login_time,
+      </if>
+      <if test="os != null" >
+        os,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="src != null" >
+        src,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginId != null" >
+        #{loginId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="src != null" >
+        #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.ms.service.mvc.model.UserLogin" >
+    update user_login
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="os != null" >
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="src != null" >
+        src = #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_id = #{loginId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.ms.service.mvc.model.UserLogin" >
+    update user_login
+    set user_id = #{userId,jdbcType=BIGINT},
+      phone = #{phone,jdbcType=CHAR},
+      status = #{status,jdbcType=TINYINT},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      os = #{os,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      src = #{src,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR}
+    where login_id = #{loginId,jdbcType=BIGINT}
+  </update>
+</mapper>

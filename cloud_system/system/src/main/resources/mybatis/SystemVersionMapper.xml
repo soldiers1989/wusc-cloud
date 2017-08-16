@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.system.mapper.SystemVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.system.model.SystemVersion" >
+    <id column="system_version_id" property="systemVersionId" jdbcType="BIGINT" />
+    <result column="system_id" property="systemId" jdbcType="BIGINT" />
+    <result column="compatible_no" property="compatibleNo" jdbcType="INTEGER" />
+    <result column="main_version" property="mainVersion" jdbcType="INTEGER" />
+    <result column="minor_version" property="minorVersion" jdbcType="INTEGER" />
+    <result column="version_desc" property="versionDesc" jdbcType="VARCHAR" />
+    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="QR_code_url" property="qrCodeUrl" jdbcType="VARCHAR" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    system_version_id, system_id, compatible_no, main_version, minor_version, version_desc, 
+    download_url, QR_code_url, icon_url, created, status, platform
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.system.model.SystemVersionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from system_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_version
+    where system_version_id = #{systemVersionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_version
+    where system_version_id = #{systemVersionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.system.model.SystemVersion" >
+    insert into system_version (system_version_id, system_id, compatible_no, 
+      main_version, minor_version, version_desc, 
+      download_url, QR_code_url, icon_url, 
+      created, status, platform
+      )
+    values (#{systemVersionId,jdbcType=BIGINT}, #{systemId,jdbcType=BIGINT}, #{compatibleNo,jdbcType=INTEGER}, 
+      #{mainVersion,jdbcType=INTEGER}, #{minorVersion,jdbcType=INTEGER}, #{versionDesc,jdbcType=VARCHAR}, 
+      #{downloadUrl,jdbcType=VARCHAR}, #{qrCodeUrl,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{platform,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.system.model.SystemVersion" >
+    insert into system_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="systemVersionId != null" >
+        system_version_id,
+      </if>
+      <if test="systemId != null" >
+        system_id,
+      </if>
+      <if test="compatibleNo != null" >
+        compatible_no,
+      </if>
+      <if test="mainVersion != null" >
+        main_version,
+      </if>
+      <if test="minorVersion != null" >
+        minor_version,
+      </if>
+      <if test="versionDesc != null" >
+        version_desc,
+      </if>
+      <if test="downloadUrl != null" >
+        download_url,
+      </if>
+      <if test="qrCodeUrl != null" >
+        QR_code_url,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="systemVersionId != null" >
+        #{systemVersionId,jdbcType=BIGINT},
+      </if>
+      <if test="systemId != null" >
+        #{systemId,jdbcType=BIGINT},
+      </if>
+      <if test="compatibleNo != null" >
+        #{compatibleNo,jdbcType=INTEGER},
+      </if>
+      <if test="mainVersion != null" >
+        #{mainVersion,jdbcType=INTEGER},
+      </if>
+      <if test="minorVersion != null" >
+        #{minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="versionDesc != null" >
+        #{versionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeUrl != null" >
+        #{qrCodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.system.model.SystemVersionExample" resultType="java.lang.Integer" >
+    select count(*) from system_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_version
+    <set >
+      <if test="record.systemVersionId != null" >
+        system_version_id = #{record.systemVersionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.systemId != null" >
+        system_id = #{record.systemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.compatibleNo != null" >
+        compatible_no = #{record.compatibleNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.mainVersion != null" >
+        main_version = #{record.mainVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.minorVersion != null" >
+        minor_version = #{record.minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionDesc != null" >
+        version_desc = #{record.versionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadUrl != null" >
+        download_url = #{record.downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrCodeUrl != null" >
+        QR_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconUrl != null" >
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_version
+    set system_version_id = #{record.systemVersionId,jdbcType=BIGINT},
+      system_id = #{record.systemId,jdbcType=BIGINT},
+      compatible_no = #{record.compatibleNo,jdbcType=INTEGER},
+      main_version = #{record.mainVersion,jdbcType=INTEGER},
+      minor_version = #{record.minorVersion,jdbcType=INTEGER},
+      version_desc = #{record.versionDesc,jdbcType=VARCHAR},
+      download_url = #{record.downloadUrl,jdbcType=VARCHAR},
+      QR_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      platform = #{record.platform,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.system.model.SystemVersion" >
+    update system_version
+    <set >
+      <if test="systemId != null" >
+        system_id = #{systemId,jdbcType=BIGINT},
+      </if>
+      <if test="compatibleNo != null" >
+        compatible_no = #{compatibleNo,jdbcType=INTEGER},
+      </if>
+      <if test="mainVersion != null" >
+        main_version = #{mainVersion,jdbcType=INTEGER},
+      </if>
+      <if test="minorVersion != null" >
+        minor_version = #{minorVersion,jdbcType=INTEGER},
+      </if>
+      <if test="versionDesc != null" >
+        version_desc = #{versionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeUrl != null" >
+        QR_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where system_version_id = #{systemVersionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.system.model.SystemVersion" >
+    update system_version
+    set system_id = #{systemId,jdbcType=BIGINT},
+      compatible_no = #{compatibleNo,jdbcType=INTEGER},
+      main_version = #{mainVersion,jdbcType=INTEGER},
+      minor_version = #{minorVersion,jdbcType=INTEGER},
+      version_desc = #{versionDesc,jdbcType=VARCHAR},
+      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      QR_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      platform = #{platform,jdbcType=VARCHAR}
+    where system_version_id = #{systemVersionId,jdbcType=BIGINT}
+  </update>
+</mapper>

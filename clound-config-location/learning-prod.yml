@@ -1,0 +1,32 @@
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+redis: 
+  token: 815989761215415db597670ba2e32ef1
+spring:
+  zipkin.base-url: 'http://zipkin:9411'
+  datasource:
+    name: college
+    username: ${MYSQL_USER}
+    password: ${MYSQL_USER_PWD}
+    url: jdbc:mysql://${MYSQL_HOST}:3306/college?useUnicode=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    tomcat:
+      max-idle: 200
+      min-idle: 60
+      max-active: 250
+cxc:
+  log:
+    level: WARNING

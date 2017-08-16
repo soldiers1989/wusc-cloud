@@ -1,0 +1,19 @@
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+spring:
+  zipkin.base-url: 'http://47.93.54.230:9411'
+server:
+  port: 8086
+redis:
+  token: 815989761215415db597670ba2e32ef1
+  host: 47.93.54.230
+  port: 6379
+  timeout: 4000
+  password: wanglei#520
+  config:
+    maxTotal: 200
+    maxIdle: 100
+    minIdle: 20
+cxc:
+  log:
+    level: INFO
+    

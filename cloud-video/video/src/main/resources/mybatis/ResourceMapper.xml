@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.video.mapper.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.video.model.Resource" >
+    <id column="resource_id" property="resourceId" jdbcType="BIGINT" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
+    <result column="resource_summary" property="resourceSummary" jdbcType="VARCHAR" />
+    <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+    <result column="third_id" property="thirdId" jdbcType="CHAR" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    resource_id, resource_name, resource_type, resource_summary, resource_url, created, 
+    updated, update_user_id, third_id, create_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.video.model.ResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from resource
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.video.model.Resource" >
+    insert into resource (resource_id, resource_name, resource_type, 
+      resource_summary, resource_url, created, 
+      updated, update_user_id, third_id, 
+      create_id)
+    values (#{resourceId,jdbcType=BIGINT}, #{resourceName,jdbcType=VARCHAR}, #{resourceType,jdbcType=VARCHAR}, 
+      #{resourceSummary,jdbcType=VARCHAR}, #{resourceUrl,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{thirdId,jdbcType=CHAR}, 
+      #{createId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.video.model.Resource" useGeneratedKeys="true" keyProperty="resourceId">
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="resourceName != null" >
+        resource_name,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="resourceSummary != null" >
+        resource_summary,
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="thirdId != null" >
+        third_id,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceSummary != null" >
+        #{resourceSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceUrl != null" >
+        #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdId != null" >
+        #{thirdId,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.video.model.ResourceExample" resultType="java.lang.Integer" >
+    select count(*) from resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resource
+    <set >
+      <if test="record.resourceId != null" >
+        resource_id = #{record.resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.resourceName != null" >
+        resource_name = #{record.resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceType != null" >
+        resource_type = #{record.resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceSummary != null" >
+        resource_summary = #{record.resourceSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceUrl != null" >
+        resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.thirdId != null" >
+        third_id = #{record.thirdId,jdbcType=CHAR},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resource
+    set resource_id = #{record.resourceId,jdbcType=BIGINT},
+      resource_name = #{record.resourceName,jdbcType=VARCHAR},
+      resource_type = #{record.resourceType,jdbcType=VARCHAR},
+      resource_summary = #{record.resourceSummary,jdbcType=VARCHAR},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      third_id = #{record.thirdId,jdbcType=CHAR},
+      create_id = #{record.createId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.video.model.Resource" >
+    update resource
+    <set >
+      <if test="resourceName != null" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceSummary != null" >
+        resource_summary = #{resourceSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdId != null" >
+        third_id = #{thirdId,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.video.model.Resource" >
+    update resource
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=VARCHAR},
+      resource_summary = #{resourceSummary,jdbcType=VARCHAR},
+      resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      third_id = #{thirdId,jdbcType=CHAR},
+      create_id = #{createId,jdbcType=BIGINT}
+    where resource_id = #{resourceId,jdbcType=BIGINT}
+  </update>
+</mapper>

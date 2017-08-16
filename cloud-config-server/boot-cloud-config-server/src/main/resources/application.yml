@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://wxl@123.56.3.96/wxl/clound-config-location.git
+          searchPaths: /
+          username: wxl
+          password: prodconfig
+server:
+  port: 7001
+eureka: 
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER_ADDRESS}:1111/eureka/
+  instance:
+    preferIpAddress: false
+    hostName: config-server

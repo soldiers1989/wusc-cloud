@@ -1,0 +1,1 @@
+spring-cloud-config-server工程的yml文件库，提供给spring-cloud-config-client工程

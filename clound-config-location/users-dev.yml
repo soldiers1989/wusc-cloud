@@ -1,0 +1,43 @@
+server:
+  port: 8081
+  connection-timeout: 10000
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 6
+redis:
+  token: 815989761215415db597670ba2e32ef1
+  organization-key: college.organizations
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+spring:
+  zipkin.base-url: 'http://47.93.54.230:9411'
+  datasource:
+    name: college
+    username: root
+    password: Wangdachui#520
+    url: jdbc:mysql://47.93.54.230:3306/collage?useUnicode=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+cxc:
+  log:
+    level: INFO
+college:
+  session:
+    expire: 604800000
+    redis:
+      key: college.session.key:%s
+  sms:
+    expire: 6000000
+    desc: 您的验证码为:%s,%d分钟内有效,请切勿泄露或转发他人.【创大学院】

@@ -1,0 +1,50 @@
+server:
+  port: 8085
+redis:
+  token: 815989761215415db597670ba2e32ef1
+spring:
+  datasource:
+    name: college
+    username: root
+    password: Wangdachui#520
+    url: jdbc:mysql://47.93.54.230:3306/collage?useUnicode=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    tomcat:
+      max-idle: 20
+      min-idle: 1
+      max-active: 15
+cxc:
+  log:
+    level: INFO
+aliyun:
+  video:
+    accessKeyId: LTAIGcvatvLpWTwl
+    accessKeySecret: fRF7snwqen7Mp2mAo8QmgfSDJVlEYS
+  oss:
+    accessKeyId: LTAI96tXjlG6lyG4
+    accessKeySecret: rBkOCmXehOpDLClN5OCFd2Inf4LJce
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucket: cdoss
+    dir: college/
+    region: cn-beijing
+    version: 2015-04-01
+    sts:
+      roleArn: 'acs:ram::1768692225447833:role/aliyunosstokengeneratorrole'
+      durationSeconds: 900
+      policy: '{"Statement": [{"Action": "oss:*","Effect": "Allow","Resource": "*"}],"Version": "1"}'
+      roleSessionName: ossAdmin
+    

@@ -1,0 +1,15 @@
+CourseMapper.java增加
+    int updateClickRateByPrimaryKey(Long courseId);
+    int updateParticipantsNumByPrimaryKey(Long courseId);
+
+CourseMapper.xml增加
+ <update id="updateClickRateByPrimaryKey" parameterType="java.lang.Long" >
+    update course
+    set click_rate = click_rate+1
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateParticipantsNumByPrimaryKey" parameterType="java.lang.Long" >
+    update course
+    set participants_num = participants_num+1
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </update>

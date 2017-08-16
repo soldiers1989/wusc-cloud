@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.chat.mapper.UserRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.chat.model.UserRelation" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <id column="another_user_id" property="anotherUserId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, another_user_id, type, remark, updated, created
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.cxc.chat.model.UserRelationKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_relation
+    where user_id = #{userId,jdbcType=BIGINT}
+      and another_user_id = #{anotherUserId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cxc.chat.model.UserRelationKey" >
+    delete from user_relation
+    where user_id = #{userId,jdbcType=BIGINT}
+      and another_user_id = #{anotherUserId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.chat.model.UserRelation" >
+    insert into user_relation (user_id, another_user_id, type, 
+      remark, updated, created
+      )
+    values (#{userId,jdbcType=BIGINT}, #{anotherUserId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, 
+      #{remark,jdbcType=VARCHAR}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.chat.model.UserRelation" >
+    insert into user_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="anotherUserId != null" >
+        another_user_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="anotherUserId != null" >
+        #{anotherUserId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.chat.model.UserRelation" >
+    update user_relation
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+      and another_user_id = #{anotherUserId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.chat.model.UserRelation" >
+    update user_relation
+    set type = #{type,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+      and another_user_id = #{anotherUserId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByUserIdAndType" resultMap="BaseResultMap" >
+  	select
+  	<include refid="Base_Column_List" />
+    from user_relation
+    where user_id = #{userId,jdbcType=BIGINT}
+      and type = #{type,jdbcType=TINYINT}
+  </select>
+  <select id="selectByAnotherUserIdAndType" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from user_relation
+    where another_user_id = #{anotherUserId,jdbcType=BIGINT}
+      and type = #{type,jdbcType=TINYINT}
+  </select>
+  <select id="selectFriendIdByIds" resultType="java.lang.Long">
+  	select another_user_id from user_relation where user_id = #{userId,jdbcType=BIGINT} and another_user_id in 
+  	(<foreach collection="userIds" separator="," item="c">#{c,jdbcType=BIGINT}</foreach>) and type = #{type,jdbcType=TINYINT}
+  </select>
+  <select id="selectAllByUserIdAndType" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from user_relation
+    where another_user_id = #{userId,jdbcType=BIGINT}
+      and type = #{type,jdbcType=TINYINT}
+    union all
+    select
+  	<include refid="Base_Column_List" />
+    from user_relation
+    where user_id = #{userId,jdbcType=BIGINT}
+      and type = #{type,jdbcType=TINYINT}
+  </select>
+</mapper>

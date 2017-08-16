@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.video.mapper.AliVideoUploadMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.video.model.AliVideoUpload" >
+    <id column="upload_id" property="uploadId" jdbcType="BIGINT" />
+    <result column="video_id" property="videoId" jdbcType="VARCHAR" />
+    <result column="upload_address" property="uploadAddress" jdbcType="VARCHAR" />
+    <result column="upload_auth" property="uploadAuth" jdbcType="VARCHAR" />
+    <result column="request_id" property="requestId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    upload_id, video_id, upload_address, upload_auth, request_id, create_time, status, 
+    delete_flag, create_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ali_video_upload
+    where upload_id = #{uploadId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ali_video_upload
+    where upload_id = #{uploadId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.video.model.AliVideoUpload" >
+    insert into ali_video_upload (upload_id, video_id, upload_address, 
+      upload_auth, request_id, create_time, 
+      status, delete_flag, create_id
+      )
+    values (#{uploadId,jdbcType=BIGINT}, #{videoId,jdbcType=VARCHAR}, #{uploadAddress,jdbcType=VARCHAR}, 
+      #{uploadAuth,jdbcType=VARCHAR}, #{requestId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=BIT}, #{createId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.video.model.AliVideoUpload" >
+    insert into ali_video_upload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uploadId != null" >
+        upload_id,
+      </if>
+      <if test="videoId != null" >
+        video_id,
+      </if>
+      <if test="uploadAddress != null" >
+        upload_address,
+      </if>
+      <if test="uploadAuth != null" >
+        upload_auth,
+      </if>
+      <if test="requestId != null" >
+        request_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uploadId != null" >
+        #{uploadId,jdbcType=BIGINT},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAddress != null" >
+        #{uploadAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAuth != null" >
+        #{uploadAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="requestId != null" >
+        #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.video.model.AliVideoUpload" >
+    update ali_video_upload
+    <set >
+      <if test="videoId != null" >
+        video_id = #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAddress != null" >
+        upload_address = #{uploadAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAuth != null" >
+        upload_auth = #{uploadAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="requestId != null" >
+        request_id = #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=BIT},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where upload_id = #{uploadId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.video.model.AliVideoUpload" >
+    update ali_video_upload
+    set video_id = #{videoId,jdbcType=VARCHAR},
+      upload_address = #{uploadAddress,jdbcType=VARCHAR},
+      upload_auth = #{uploadAuth,jdbcType=VARCHAR},
+      request_id = #{requestId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=BIT},
+      create_id = #{createId,jdbcType=BIGINT}
+    where upload_id = #{uploadId,jdbcType=BIGINT}
+  </update>
+</mapper>

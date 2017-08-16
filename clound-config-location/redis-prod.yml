@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  connection-timeout: 5000
+  tomcat:
+    max-threads: 1000
+    min-spare-threads: 200
+redis:
+  token: 815989761215415db597670ba2e32ef1
+  host: ${REDIS_HOST}
+  port: 6379
+  timeout: 4000
+  password: ${REDIS_USER_PWD}
+  database: 10
+  config:
+    maxTotal: 2000
+    maxIdle: 1000
+    minIdle: 200
+spring:
+  zipkin.base-url: 'http://zipkin:9411'
+cxc:
+  log:
+    level: WARNING
+    

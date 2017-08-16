@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.CourseCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.CourseComment" >
+    <id column="comment_id" property="commentId" jdbcType="BIGINT" />
+    <result column="course_id" property="courseId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="conntent" property="conntent" jdbcType="VARCHAR" />
+    <result column="underwrite" property="underwrite" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_id, course_id, user_id, title, picture_url, conntent, underwrite, created, 
+    updated, photo_url, nickname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.CourseCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_comment
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from course_comment
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.CourseCommentExample" >
+    delete from course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.CourseComment" >
+    insert into course_comment (comment_id, course_id, user_id, 
+      title, picture_url, conntent, 
+      underwrite, created, updated, 
+      photo_url, nickname)
+    values (#{commentId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{pictureUrl,jdbcType=VARCHAR}, #{conntent,jdbcType=VARCHAR}, 
+      #{underwrite,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{photoUrl,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.CourseComment" useGeneratedKeys="true" keyProperty="commentId">
+    insert into course_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="conntent != null" >
+        conntent,
+      </if>
+      <if test="underwrite != null" >
+        underwrite,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="conntent != null" >
+        #{conntent,jdbcType=VARCHAR},
+      </if>
+      <if test="underwrite != null" >
+        #{underwrite,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.CourseCommentExample" resultType="java.lang.Integer" >
+    select count(*) from course_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course_comment
+    <set >
+      <if test="record.commentId != null" >
+        comment_id = #{record.commentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conntent != null" >
+        conntent = #{record.conntent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.underwrite != null" >
+        underwrite = #{record.underwrite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photoUrl != null" >
+        photo_url = #{record.photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course_comment
+    set comment_id = #{record.commentId,jdbcType=BIGINT},
+      course_id = #{record.courseId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      conntent = #{record.conntent,jdbcType=VARCHAR},
+      underwrite = #{record.underwrite,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      photo_url = #{record.photoUrl,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.CourseComment" >
+    update course_comment
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="conntent != null" >
+        conntent = #{conntent,jdbcType=VARCHAR},
+      </if>
+      <if test="underwrite != null" >
+        underwrite = #{underwrite,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.CourseComment" >
+    update course_comment
+    set course_id = #{courseId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      conntent = #{conntent,jdbcType=VARCHAR},
+      underwrite = #{underwrite,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=BIGINT}
+  </update>
+</mapper>

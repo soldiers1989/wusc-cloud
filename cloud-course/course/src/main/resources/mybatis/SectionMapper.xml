@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.SectionMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.Section" >
+    <id column="section_id" property="sectionId" jdbcType="BIGINT" />
+    <result column="course_id" property="courseId" jdbcType="BIGINT" />
+    <result column="chapter_id" property="chapterId" jdbcType="BIGINT" />
+    <result column="section_name" property="sectionName" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="depict" property="depict" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="TIMESTAMP" />
+    <result column="is_leaf_node" property="isLeafNode" jdbcType="BIT" />
+    <result column="part_id_list" property="partIdList" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    section_id, course_id, chapter_id, section_name, picture_url, depict, sn, is_leaf_node, 
+    part_id_list
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.SectionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from section
+    where section_id = #{sectionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from section
+    where section_id = #{sectionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.SectionExample" >
+    delete from section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.Section" >
+    insert into section (section_id, course_id, chapter_id, 
+      section_name, picture_url, depict, 
+      sn, is_leaf_node, part_id_list
+      )
+    values (#{sectionId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, #{chapterId,jdbcType=BIGINT}, 
+      #{sectionName,jdbcType=VARCHAR}, #{pictureUrl,jdbcType=VARCHAR}, #{depict,jdbcType=VARCHAR}, 
+      #{sn,jdbcType=TIMESTAMP}, #{isLeafNode,jdbcType=BIT}, #{partIdList,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.Section" useGeneratedKeys="true" keyProperty="sectionId">
+    insert into section
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="chapterId != null" >
+        chapter_id,
+      </if>
+      <if test="sectionName != null" >
+        section_name,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="depict != null" >
+        depict,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node,
+      </if>
+      <if test="partIdList != null" >
+        part_id_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sectionId != null" >
+        #{sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterId != null" >
+        #{chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionName != null" >
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeafNode != null" >
+        #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        #{partIdList,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.SectionExample" resultType="java.lang.Integer" >
+    select count(*) from section
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update section
+    <set >
+      <if test="record.sectionId != null" >
+        section_id = #{record.sectionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.chapterId != null" >
+        chapter_id = #{record.chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sectionName != null" >
+        section_name = #{record.sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pictureUrl != null" >
+        picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depict != null" >
+        depict = #{record.depict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isLeafNode != null" >
+        is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="record.partIdList != null" >
+        part_id_list = #{record.partIdList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update section
+    set section_id = #{record.sectionId,jdbcType=BIGINT},
+      course_id = #{record.courseId,jdbcType=BIGINT},
+      chapter_id = #{record.chapterId,jdbcType=BIGINT},
+      section_name = #{record.sectionName,jdbcType=VARCHAR},
+      picture_url = #{record.pictureUrl,jdbcType=VARCHAR},
+      depict = #{record.depict,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=TIMESTAMP},
+      is_leaf_node = #{record.isLeafNode,jdbcType=BIT},
+      part_id_list = #{record.partIdList,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.Section" >
+    update section
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="chapterId != null" >
+        chapter_id = #{chapterId,jdbcType=BIGINT},
+      </if>
+      <if test="sectionName != null" >
+        section_name = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="depict != null" >
+        depict = #{depict,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLeafNode != null" >
+        is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      </if>
+      <if test="partIdList != null" >
+        part_id_list = #{partIdList,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where section_id = #{sectionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.Section" >
+    update section
+    set course_id = #{courseId,jdbcType=BIGINT},
+      chapter_id = #{chapterId,jdbcType=BIGINT},
+      section_name = #{sectionName,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      depict = #{depict,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=TIMESTAMP},
+      is_leaf_node = #{isLeafNode,jdbcType=BIT},
+      part_id_list = #{partIdList,jdbcType=VARCHAR}
+    where section_id = #{sectionId,jdbcType=BIGINT}
+  </update>
+</mapper>

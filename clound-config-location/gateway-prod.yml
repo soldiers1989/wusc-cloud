@@ -1,0 +1,67 @@
+server:
+  port: 8090
+  connection-timeout: 5000
+  ssl:
+    enabled: true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 30000
+spring:
+  zipkin.base-url: 'http://zipkin:9411'
+  datasource:
+    tomcat:
+      max-idle: 6000
+      min-idle: 1000
+      max-active: 3000
+zuul:
+  prefix: /college
+  routes:
+    users: 
+      path: /users/**
+      serviceId: users
+      stripPrefix: true
+    course:
+      path: /courses/**
+      serviceId: course
+      stripPrefix: true
+    learning:
+      path: /learning/**
+      serviceId: learning
+      stripPrefix: true
+    system: 
+      path: /system/**
+      serviceId: system
+      stripPrefix: true
+    video:
+      path: /video/**
+      serviceId: video
+      stripPrefix: true
+    oss:
+      path: /oss/**
+      serviceId: video
+      stripPrefix: true
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 30000
+redis: 
+  token: 815989761215415db597670ba2e32ef1
+college:
+  session:
+    expire: 604800000 #one week
+    redis:
+      key: 'college.session.key:%s'
+cxc:
+  log:
+    level: WARNING
+  college:
+    zuul:
+      session:
+        allow:
+          url:
+            /college/users/registrations,
+            /college/users/verification,
+            /college/users/login,
+            /college/users/password,
+            /college/courses/homePageServices,
+            /college/courses/courses,
+            /college/courses/courseCategories
+          startWith:
+            /college/system

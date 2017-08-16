@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.course.mapper.TutorMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.course.model.Tutor" >
+    <id column="tutor_id" property="tutorId" jdbcType="BIGINT" />
+    <result column="tutor_name" property="tutorName" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="resume" property="resume" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tutor_id, tutor_name, photo_url, email, resume
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxc.course.model.TutorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tutor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tutor
+    where tutor_id = #{tutorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tutor
+    where tutor_id = #{tutorId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxc.course.model.TutorExample" >
+    delete from tutor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxc.course.model.Tutor" >
+    insert into tutor (tutor_id, tutor_name, photo_url, 
+      email, resume)
+    values (#{tutorId,jdbcType=BIGINT}, #{tutorName,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.course.model.Tutor" useGeneratedKeys="true" keyProperty="tutorId">
+    insert into tutor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tutorId != null" >
+        tutor_id,
+      </if>
+      <if test="tutorName != null" >
+        tutor_name,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="resume != null" >
+        resume,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tutorId != null" >
+        #{tutorId,jdbcType=BIGINT},
+      </if>
+      <if test="tutorName != null" >
+        #{tutorName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="resume != null" >
+        #{resume,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxc.course.model.TutorExample" resultType="java.lang.Integer" >
+    select count(*) from tutor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tutor
+    <set >
+      <if test="record.tutorId != null" >
+        tutor_id = #{record.tutorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tutorName != null" >
+        tutor_name = #{record.tutorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoUrl != null" >
+        photo_url = #{record.photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resume != null" >
+        resume = #{record.resume,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tutor
+    set tutor_id = #{record.tutorId,jdbcType=BIGINT},
+      tutor_name = #{record.tutorName,jdbcType=VARCHAR},
+      photo_url = #{record.photoUrl,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      resume = #{record.resume,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.course.model.Tutor" >
+    update tutor
+    <set >
+      <if test="tutorName != null" >
+        tutor_name = #{tutorName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="resume != null" >
+        resume = #{resume,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tutor_id = #{tutorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.course.model.Tutor" >
+    update tutor
+    set tutor_name = #{tutorName,jdbcType=VARCHAR},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      resume = #{resume,jdbcType=VARCHAR}
+    where tutor_id = #{tutorId,jdbcType=BIGINT}
+  </update>
+</mapper>

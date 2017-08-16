@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.chat.mapper.UserSocialInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.chat.model.UserSocialInfo" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="REAL" />
+    <result column="latitude" property="latitude" jdbcType="REAL" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="friends_count" property="friendsCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, gender, country, province, city, signature, longitude, latitude, created, 
+    updated, friends_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_social_info
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_social_info
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.chat.model.UserSocialInfo" >
+    insert into user_social_info (user_id, gender, country, 
+      province, city, signature, 
+      longitude, latitude, created, 
+      updated, friends_count)
+    values (#{userId,jdbcType=BIGINT}, #{gender,jdbcType=TINYINT}, #{country,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=REAL}, #{latitude,jdbcType=REAL}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{friendsCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.chat.model.UserSocialInfo" >
+    insert into user_social_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="friendsCount != null" >
+        friends_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=REAL},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=REAL},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="friendsCount != null" >
+        #{friendsCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.chat.model.UserSocialInfo" >
+    update user_social_info
+    <set >
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=REAL},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=REAL},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="friendsCount != null" >
+        friends_count = #{friendsCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.chat.model.UserSocialInfo" >
+    update user_social_info
+    set gender = #{gender,jdbcType=TINYINT},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=REAL},
+      latitude = #{latitude,jdbcType=REAL},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      friends_count = #{friendsCount,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <select id="selectFriendsCountByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+  	select friends_count from user_social_info where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <update id="incFriendsCountPrimaryKey" parameterType="java.lang.Long">
+  	update user_social_info
+  	set friends_count = friends_count + 1,
+  		updated = now()
+  	where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="decFriendsCountPrimaryKey" parameterType="java.lang.Long">
+  	update user_social_info
+  	set friends_count = friends_count - 1,
+  		updated = now()
+  	where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <select id="selectListByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from user_social_info
+    where user_id in 
+    (<foreach collection="userId" separator="," item="c">#{c,jdbcType=BIGINT}</foreach>)
+  </select>
+</mapper>

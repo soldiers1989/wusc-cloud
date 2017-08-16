@@ -1,0 +1,98 @@
+server:
+  port: 8090 
+  ssl:
+    enabled: false
+    key-store: classpath:key.keystore
+    key-password: 765205025
+    key-store-password: 765205025
+    key-store-type: JKS
+    key-alias: tomcat
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+zuul:
+  prefix: /college
+  routes:
+    users: 
+      path: /users/**
+      serviceId: users
+      stripPrefix: true
+    course:
+      path: /courses/**
+      serviceId: course
+      stripPrefix: true
+    learning:
+      path: /learning/**
+      serviceId: learning
+      stripPrefix: true
+    system:
+      path: /system/**
+      serviceId: system
+      stripPrefix: true
+    video:
+      path: /video/**
+      serviceId: video
+      stripPrefix: true
+    oss:
+      path: /oss/**
+      serviceId: video
+      stripPrefix: true
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+redis: 
+  token: 815989761215415db597670ba2e32ef1
+college:
+  session:
+    expire: 604800000 #one week
+    redis:
+      key: 'college.session.key:%s'
+cxc:
+  log:
+    level: INFO
+  college:
+    zuul:
+      session:
+        allow:
+          url:
+            post:
+              /college/users/registrations,
+              /college/users/verification,
+              /college/users/login,
+              /college/users/webLogin,
+              /college/users/password
+            get:
+              /college/users/swagger-ui.html,
+              /college/users/swagger-resources/configuration/ui,
+              /college/users/swagger-resources,
+              /college/users/v2/api-docs,
+              /college/users/swagger-resources/configuration/security,
+              /college/courses/swagger-ui.html,
+              /college/courses/swagger-resources/configuration/ui,
+              /college/courses/swagger-resources,
+              /college/courses/v2/api-docs,
+              /college/courses/swagger-resources/configuration/security,
+              /college/video/swagger-ui.html,
+              /college/video/swagger-resources/configuration/ui,
+              /college/video/swagger-resources,
+              /college/video/v2/api-docs,
+              /college/video/swagger-resources/configuration/security,
+              /college/oss/swagger-ui.html,
+              /college/oss/swagger-resources/configuration/ui,
+              /college/oss/swagger-resources,
+              /college/oss/v2/api-docs,
+              /college/oss/swagger-resources/configuration/security,
+              /college/learning/swagger-ui.html,
+              /college/learning/swagger-resources/configuration/ui,
+              /college/learning/swagger-resources,
+              /college/learning/v2/api-docs,
+              /college/learning/swagger-resources/configuration/security,
+              /college/courses/homePageServices,
+              /college/courses/courses,
+              /college/courses/courseCategories
+          startWith:
+            get:
+              /college/users/webjars,
+              /college/courses/webjars,
+              /college/video/webjars,
+              /college/oss/webjars,
+              /college/learning/webjars,
+              /college/system
