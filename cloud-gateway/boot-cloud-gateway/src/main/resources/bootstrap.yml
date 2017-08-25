@@ -1,0 +1,18 @@
+spring: 
+  application: 
+    name: gateway
+  cloud: 
+    config:
+      profile: ${CLOUD_PROFILE}
+      label: master
+      failFast: true
+      discovery: 
+        serviceId: config-server
+        enabled: true
+eureka: 
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER_ADDRESS}:1111/eureka/
+  instance:
+    preferIpAddress: false
+    hostName: ${spring.application.name}
