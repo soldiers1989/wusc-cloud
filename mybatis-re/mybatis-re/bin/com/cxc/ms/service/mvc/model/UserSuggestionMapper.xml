@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxc.ms.service.mvc.model.UserSuggestionMapper" >
+  <resultMap id="BaseResultMap" type="com.cxc.ms.service.mvc.model.UserSuggestion" >
+    <id column="user_suggestion_id" property="userSuggestionId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="suggestion_type" property="suggestionType" jdbcType="VARCHAR" />
+    <result column="suggestion_text" property="suggestionText" jdbcType="VARCHAR" />
+    <result column="handle" property="handle" jdbcType="VARCHAR" />
+    <result column="handle_time" property="handleTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_suggestion_id, user_id, submit_time, suggestion_type, suggestion_text, handle, 
+    handle_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_suggestion
+    where user_suggestion_id = #{userSuggestionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_suggestion
+    where user_suggestion_id = #{userSuggestionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cxc.ms.service.mvc.model.UserSuggestion" >
+    insert into user_suggestion (user_suggestion_id, user_id, submit_time, 
+      suggestion_type, suggestion_text, handle, 
+      handle_time)
+    values (#{userSuggestionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{suggestionType,jdbcType=VARCHAR}, #{suggestionText,jdbcType=VARCHAR}, #{handle,jdbcType=VARCHAR}, 
+      #{handleTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxc.ms.service.mvc.model.UserSuggestion" >
+    insert into user_suggestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userSuggestionId != null" >
+        user_suggestion_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="suggestionType != null" >
+        suggestion_type,
+      </if>
+      <if test="suggestionText != null" >
+        suggestion_text,
+      </if>
+      <if test="handle != null" >
+        handle,
+      </if>
+      <if test="handleTime != null" >
+        handle_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userSuggestionId != null" >
+        #{userSuggestionId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suggestionType != null" >
+        #{suggestionType,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestionText != null" >
+        #{suggestionText,jdbcType=VARCHAR},
+      </if>
+      <if test="handle != null" >
+        #{handle,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxc.ms.service.mvc.model.UserSuggestion" >
+    update user_suggestion
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="suggestionType != null" >
+        suggestion_type = #{suggestionType,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestionText != null" >
+        suggestion_text = #{suggestionText,jdbcType=VARCHAR},
+      </if>
+      <if test="handle != null" >
+        handle = #{handle,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_suggestion_id = #{userSuggestionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxc.ms.service.mvc.model.UserSuggestion" >
+    update user_suggestion
+    set user_id = #{userId,jdbcType=BIGINT},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      suggestion_type = #{suggestionType,jdbcType=VARCHAR},
+      suggestion_text = #{suggestionText,jdbcType=VARCHAR},
+      handle = #{handle,jdbcType=VARCHAR},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP}
+    where user_suggestion_id = #{userSuggestionId,jdbcType=BIGINT}
+  </update>
+</mapper>
